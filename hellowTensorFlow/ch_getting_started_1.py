@@ -18,7 +18,7 @@ a = tf.placeholder(tf.float32)
 b = tf.placeholder(tf.float32)
 adder_node = a + b  # + provides a shortcut for tf.add(a,b)
 
-print(sess.run(adder_node, {a: 3, b: 4.5}))
+print(sess.run(adder_node, {a: 3, b: 4.5}))   # can also write 'feed_dict={a: 3, b: 4.5})'
 print(sess.run(adder_node, {a: [1, 3], b: [2, 4]}))
 
 add_and_triple = adder_node * 3
@@ -50,7 +50,7 @@ train = optimizer.minimize(loss)
 sess.run(init)  # reset values to incorrect defaults
 for i in range(1000):
     sess.run(train, {x: [1, 2, 3, 4], y: [0, -1, -2, -3]})
-print(sess.run([W, b]))
+    print(sess.run([W, b]))
 
 # complete model
 
