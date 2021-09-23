@@ -29,7 +29,7 @@ if len(t2) > 0:
     txt = t2[-1].text
 
 msg = txt.split("：")[-1].split("@")[0]
-usr = txt.split("：")[-2].split(" |\n")[-1]
+usr = txt.split("：")[-2].split(" ")[-1].split("\n")[-1]
 res = qingyunke(msg)
 ind_end = min(10,len(msg))
 response = res + "@" + usr + ":" + msg[0:ind_end] + "..."
@@ -39,18 +39,35 @@ print(response)
 
 # past msg to chat box
 element = driver.find_elements_by_class_name('ChatSend-txt')
-element[0].send_keys(response)
+# element[0].send_keys(response)
 
 # click send button
 element = driver.find_elements_by_class_name('ChatSend-button')
 # element[0].click()
 
+# get cookies and convert to dictionary
+d = {}
+cookies = driver.get_cookies()
+for item in cookies:
+    key = item['name']
+    value = item['value']
+    d.update({key:value})
 
+# write as json file
+file_name = "C:/Users/chenz/Desktop/cookie.json"
+with open(file_name, 'w') as f:
+    json.dump(d,f)
+    
 #%%
+import json
 
-file_name = "C:/Users/ZheChen/Desktop/cookie_mmm.txt"
+# read cookie from txt
+file_name = "C:/Users/chenz/Desktop/cookie.txt"
 with open(file_name) as f:
     t = f.read()
 
-items = t.split(";")
+d = {}
+for item in t.split(";"):
+    key, value = item.split("=")
+    d.update({key:value})
 
