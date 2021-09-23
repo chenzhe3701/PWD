@@ -24,9 +24,22 @@ driver = webdriver.Chrome(chrome_options=options)
 t1 = driver.find_elements_by_class_name('js-noblefloating-barragecont Barrage-notice--noble')
 t2 = driver.find_elements_by_class_name('Barrage-notice--normalBarrage')
 t3 = driver.find_elements_by_class_name('js-fansfloating-barragecont Barrage--paddedBarrage')
+t4 = driver.execute_script(script='return document.getElementsByClassName(\'js-noblefloating-barragecont Barrage-notice--noble\')')
+t5 = driver.execute_script(script='return document.getElementsByClassName(\'Barrage-notice--normalBarrage\')')
+t6 = driver.execute_script(script='return document.getElementsByClassName(\'js-fansfloating-barragecont Barrage--paddedBarrage\')')
 
 if len(t2) > 0:
     txt = t2[-1].text
+elif len(t3) > 0:
+    txt = t3[-1].text
+elif len(t1) > 0:
+    txt = t1[-1].text
+elif len(t5) > 0:
+    txt = t5[-1].text
+elif len(t6) > 0:
+    txt = t6[-1].text
+elif len(t4) > 0:
+    txt = t4[-1].text
 
 msg = txt.split("：")[-1].split("@")[0]
 usr = txt.split("：")[-2].split(" ")[-1].split("\n")[-1]
@@ -43,7 +56,7 @@ element = driver.find_elements_by_class_name('ChatSend-txt')
 
 # click send button
 element = driver.find_elements_by_class_name('ChatSend-button')
-# element[0].click()
+element[0].click()
 
 # get cookies and convert to dictionary
 d = {}
